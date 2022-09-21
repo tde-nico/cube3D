@@ -6,7 +6,7 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:55:01 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/06 12:09:41 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/07 11:25:21 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,3 @@ int	check_args(int argc, char **argv)
 		return (ft_printf("ERROR: The argument must be .cub\n"));
 	return (0);
 }
-
-

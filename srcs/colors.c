@@ -1,54 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_utils.c                                        :+:      :+:    :+:   */
+/*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:27:39 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/07 10:42:24 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/07 12:48:23 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char	*ft_charjoin(char *s1, char s2)
+int	create_trgb(int t, int r, int g, int b)
 {
-	size_t	i;
-	char	*str;
-
-	if (!s1)
-	{
-		s1 = (char *)malloc(1 * sizeof(char));
-		s1[0] = '\0';
-	}
-	if (!s1)
-		return (NULL);
-	str = malloc((ft_strlen(s1) + 2) * sizeof(char));
-	if (str == NULL)
-		return (NULL);
-	i = -1;
-	if (s1)
-		while (s1[++i] != '\0')
-			str[i] = s1[i];
-	str[i++] = s2;
-	str[ft_strlen(s1) + 1] = '\0';
-	free(s1);
-	return (str);
+	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-char	**ft_arrdup(char **src)
+int	get_t(int trgb)
 {
-	int		i;
-	char	**tmp;
+	return ((trgb >> 24) & 0xFF);
+}
 
-	i = 0;
-	while (src[i])
-		i++;
-	tmp = malloc(sizeof(char *) * (i + 1));
-	i = -1;
-	while (src[++i])
-		tmp[i] = ft_strdup(src[i]);
-	tmp[i] = NULL;
-	return (tmp);
+int	get_r(int trgb)
+{
+	return ((trgb >> 16) & 0xFF);
+}
+
+int	get_g(int trgb)
+{
+	return ((trgb >> 8) & 0xFF);
+}
+
+int	get_b(int trgb)
+{
+	return (trgb & 0xFF);
 }

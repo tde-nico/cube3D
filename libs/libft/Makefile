@@ -45,7 +45,7 @@ OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
 OBJS_B = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES_B)))
 
 
-.c.o: $(SRCS)
+.c.o:
 	$(CC) $(CFLAGS) -c -o $@ $< -I${INCS}
 
 $(NAME): $(OBJS)
