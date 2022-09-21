@@ -24,25 +24,25 @@ int	split_textures(char **file, t_map *map)
 		j = 2;
 		while (file[i] && file[i][0] && file[i][j] == ' ')
 			j++;
-		if (ft_strnstr(file[i], NORD_TEXTURE, 2))
+		if (!map->nord && ft_strnstr(file[i], NORD_TEXTURE, 2))
 			map->nord = ft_strdup(&file[i][j]);
-		else if (ft_strnstr(file[i], SUD_TEXTURE, 2))
+		else if (!map->sud && ft_strnstr(file[i], SUD_TEXTURE, 2))
 			map->sud = ft_strdup(&file[i][j]);
-		else if (ft_strnstr(file[i], WEST_TEXTURE, 2))
+		else if (!map->west && ft_strnstr(file[i], WEST_TEXTURE, 2))
 			map->west = ft_strdup(&file[i][j]);
-		else if (ft_strnstr(file[i], EAST_TEXTURE, 2))
+		else if (!map->east && ft_strnstr(file[i], EAST_TEXTURE, 2))
 			map->east = ft_strdup(&file[i][j]);
+		if (map->nord && map->sud && map->west && map->east)
+			break ;
 	}
 	if (!map->nord || !map->sud || !map->west || !map->east)
 		return (free_map_textures(map));
+	map->search_start = i + 1;
 	return (0);
 }
 
-int	split_colors(char **file, t_map *map, int i)
+int	split_colors(char **file, t_map *map, int i, char **tmp)
 {
-	char	**tmp;
-
-	tmp = NULL;
 	while (file[++i])
 	{
 		if (ft_strnstr(file[i], FLOOR_COLOR, 1))
@@ -52,7 +52,8 @@ int	split_colors(char **file, t_map *map, int i)
 			map->floor_color[1] = ft_atoi(tmp[1]);
 			map->floor_color[2] = ft_atoi(tmp[2]);
 			free_matrix(tmp);
-			map->search_start = i + 1;
+			if (i >= map->search_start)
+				map->search_start = i + 1;
 		}
 		else if (ft_strnstr(file[i], CEILLING_COLOR, 1))
 		{
@@ -61,7 +62,8 @@ int	split_colors(char **file, t_map *map, int i)
 			map->ceilling_color[1] = ft_atoi(tmp[1]);
 			map->ceilling_color[2] = ft_atoi(tmp[2]);
 			free_matrix(tmp);
-			map->search_start = i + 1;
+			if (i >= map->search_start)
+				map->search_start = i + 1;
 		}
 	}
 	return (0);
@@ -109,12 +111,12 @@ t_map	*read_map(char *fname)
 	file = read_file(fname);
 	map = malloc(sizeof(t_map) * 1);
 	if (!map)
-		return (map_error(NULL, file, "ERROR: Malloc error\n"));
+		return (map_error(NULL, file, "Error\nMalloc error\n"));
 	init_map(map);
 	if (split_textures(file, map))
-		return (map_error(map, file, "ERROR: Missing textures\n"));
-	if (split_colors(file, map, -1))
-		return (map_error(map, file, "ERROR: Invalid colors format\n"));
+		return (map_error(map, file, "Error\nMissing textures\n"));
+	if (split_colors(file, map, -1, NULL))
+		return (map_error(map, file, "Error\nInvalid colors format\n"));
 	while (file[map->search_start] && !file[map->search_start][0])
 		++(map->search_start);
 	map->map = ft_arrdup(&file[map->search_start]);

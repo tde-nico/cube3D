@@ -2,6 +2,8 @@
 NO ./res/img/wall_0.xpm
 
 WE ./res/img/wall_2.xpm
+C 225,30,0
+
 SO ./res/img/wall_1.xpm
 
 
@@ -10,7 +12,6 @@ EA ./res/img/wall_3.xpm
 
 
 
-C 225,30,0
 
 F     220,100,0
 

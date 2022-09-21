@@ -1,0 +1,7 @@
+NO ./res/img/wall_0.xpm
+SO ./res/img/wall_1.xpm
+WE ./res/img/wall_2.xpm
+EA ./res/img/wall_3.xpm
+
+F 220,100,0
+C 225,30,0

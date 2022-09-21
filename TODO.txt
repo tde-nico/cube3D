@@ -1,9 +1,6 @@
-any order .cub file infos check
-"ERROR:" -> "Error\n"
+fish eye
 ray casting
 texturing
 minimap
-WASD
-mouse movement
 doors
 animations

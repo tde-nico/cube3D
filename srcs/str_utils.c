@@ -6,7 +6,7 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:27:39 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/07 10:42:24 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/12 10:13:39 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,20 @@ char	**ft_arrdup(char **src)
 		tmp[i] = ft_strdup(src[i]);
 	tmp[i] = NULL;
 	return (tmp);
+}
+
+void	ft_strrev(char *str)
+{
+	char	tmp;
+	size_t	i;
+	size_t	size;
+
+	i = -1;
+	size = ft_strlen(str);
+	while (++i < --size)
+	{
+		tmp = str[size];
+		str[size] = str[i];
+		str[i] = tmp;
+	}
 }

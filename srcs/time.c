@@ -5,16 +5,27 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/08 11:04:40 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/08 12:04:32 by tde-nico         ###   ########.fr       */
+/*   Created: 2022/09/12 12:31:41 by tde-nico          #+#    #+#             */
+/*   Updated: 2022/09/12 12:43:20 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h>
 
-double	get_ticks(void)
+u_int64_t	get_time(void)
 {
-	printf("fps: %ld\n", time(NULL) * 1000);
-	return (time(NULL) * 1000);
+	static struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	return ((time.tv_sec * (u_int64_t)(1000)) + (time.tv_usec / 1000));
+}
+
+void	ft_sleep(u_int64_t time)
+{
+	u_int64_t	start;
+
+	start = 0;
+	start = get_time();
+	while ((get_time() - start) < time)
+		usleep(time / 10);
 }

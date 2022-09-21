@@ -6,7 +6,7 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:58:51 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/08 09:18:10 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/14 12:02:01 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,9 @@ void	init_game(t_game *game)
 {
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, NAME);
+	game->screen.img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	game->screen.addr = mlx_get_data_addr(game->screen.img,
+			&game->screen.bits_per_pixel, &game->screen.line_length,
+			&game->screen.endian);
 	init_wall_textures(game);
 }
