@@ -1,53 +1,91 @@
-NAME		= cube3D
+END			= \033[0m
+YELLOW		= \033[33m
+RED			= \033[31m
+HIGH_RED	= \033[91m
+GREEN		= \033[32m
+BLUE		= \033[34m
+
+NAME		= cub3D
 CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror
 RM			= rm -rf
 LIBFT		= libft/libft.a
 MLX			= mlx/libmlx.a
+LIBS		= $(LIBFT)
 INCLUDE		= includes/
-LINKER		= -framework OpenGL -framework AppKit
 SRC_DIR		= srcs
 OBJ_DIR		= objs
 SRCS		= $(wildcard $(SRC_DIR)/*.c)
 OBJS		= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-$(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) -I $(INCLUDE) -c $< -o $@
+ifeq ($(OS),Windows_NT) 
+    detected_OS := Windows
+else
+    detected_OS := $(shell sh -c 'uname 2>/dev/null || echo Unknown')
+endif
 
-$(NAME): $(OBJS)
-	@make -s -C libft
-	@echo "[+] libft compiled"
-	@make -s -C mlx
-	@echo "[+] mlx compiled"
-	@$(CC) $(CFLAGS) $(LINKER) -I $(INCLUDE) $(OBJS) $(LIBFT) $(MLX) -o $@ $(READLINE)
-	@echo "[+] $(NAME) compiled"
+ifeq ($(detected_OS),Darwin)
+	LIBS += $(MLX)
+	LINKER = -framework OpenGL -framework AppKit
+endif
+
 
 all: $(NAME)
 
+$(NAME): $(LIBS) $(OBJ_DIR) $(OBJS)
+	@echo -n "$(BLUE)"
+	$(CC) $(CFLAGS) $(LINKER) -I $(INCLUDE) $(OBJS) $(LIBS) -o $@
+	@echo -n "$(END)"
+	@echo "$(GREEN)[+] $(NAME) compiled$(END)"
+
+
+
+$(OBJ_DIR):
+	@echo -n "$(BLUE)"
+	mkdir -p $@
+	@echo -n "$(END)"
+
+$(LIBFT):
+	@make -s -C libft
+	@echo "$(GREEN)[+] libft compiled$(END)"
+
+$(MLX):
+	@make -s -C mlx 2> /dev/null
+	@echo "$(GREEN)[+] mlx compiled$(END)"
+
+$(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
+	@echo -n "$(BLUE)"
+	$(CC) $(CFLAGS) -I $(INCLUDE) -c $< -o $@
+	@echo -n "$(END)"
+
+
+
 clean:
 	@make -s -C libft clean
-	@echo "[+] libft cleaned"
+	@echo "$(YELLOW)[+] libft cleaned$(END)"
 	@make -s -C mlx clean
-	@echo "[+] mlx cleaned"
+	@echo "$(YELLOW)[+] mlx cleaned$(END)"
 	@$(RM) $(OBJ_DIR)
-	@echo "[+] $(NAME) cleaned"
+	@echo "$(YELLOW)[+] $(NAME) cleaned$(END)"
 
 fclean: clean
 	@make -s -C libft fclean
-	@echo "[+] libft fcleaned"
+	@echo "$(YELLOW)[+] libft fcleaned$(END)"
 	@$(RM) $(NAME)
-	@echo "[+] $(NAME) fcleaned"
+	@echo "$(YELLOW)[+] $(NAME) fcleaned$(END)"
 
 re: fclean all
 
+
+
+
 test: all
-	@./$(NAME)
+	@./$(NAME) maps/default.cub
 
 run: test
 
 var: all
-	@valgrind --leak-check=full ./$(NAME)
+	@valgrind --leak-check=full ./$(NAME) maps/default.cub
 val: var
 
 leaks: all
@@ -57,11 +95,14 @@ up:
 	@$(RM) ../$(NAME)_backup
 	@mkdir -p ../$(NAME)_backup
 	@cp -r * ../$(NAME)_backup
-	@echo "[+] Backuped"
+	@echo "[+] Backed up"
 backup: up
 
 tar:
 	@tar -cf ../$(NAME).tar .
-	@echo "[+] Tarred"
+	@echo "[+] Made tar"
 
-.PHONY: all clean fclean re $(NAME)
+
+
+
+.PHONY: all clean fclean re

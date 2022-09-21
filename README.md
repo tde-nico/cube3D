@@ -11,6 +11,4 @@ C
 
 -->
 
-(not finished)
-
 42 cub3D
