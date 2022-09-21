@@ -24,11 +24,7 @@ char	*get_next_line(int fd)
 	{
 		byte = read(fd, &buffer, 1);
 		if (buffer == '\n' || !byte)
-		{
-			if (!byte)
-				free(line);
 			break ;
-		}
 		line = ft_charjoin(line, buffer);
 	}
 	return (line);

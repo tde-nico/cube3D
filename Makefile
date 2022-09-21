@@ -86,6 +86,36 @@ re: fclean all
 
 
 
+test_invalid: all
+	./$(NAME) maps/invalid_0.cub
+	./$(NAME) maps/invalid_1.cub
+	./$(NAME) maps/invalid_2.cub
+	./$(NAME) maps/invalid_3.cub
+	./$(NAME) maps/invalid_4.cub
+	./$(NAME) maps/invalid_5.cub
+	./$(NAME) maps/invalid_6.cub
+	./$(NAME) maps/invalid_7.cub
+
+val_invalid: all
+	valgrind --leak-check=full ./$(NAME) maps/invalid_0.cub
+	valgrind --leak-check=full ./$(NAME) maps/invalid_1.cub
+	valgrind --leak-check=full ./$(NAME) maps/invalid_2.cub
+	valgrind --leak-check=full ./$(NAME) maps/invalid_3.cub
+	valgrind --leak-check=full ./$(NAME) maps/invalid_4.cub
+	valgrind --leak-check=full ./$(NAME) maps/invalid_5.cub
+	valgrind --leak-check=full ./$(NAME) maps/invalid_6.cub
+	valgrind --leak-check=full ./$(NAME) maps/invalid_7.cub
+
+leaks_invalid: all
+	leaks --atExit -- ./$(NAME) maps/invalid_0.cub
+	leaks --atExit -- ./$(NAME) maps/invalid_1.cub
+	leaks --atExit -- ./$(NAME) maps/invalid_2.cub
+	leaks --atExit -- ./$(NAME) maps/invalid_3.cub
+	leaks --atExit -- ./$(NAME) maps/invalid_4.cub
+	leaks --atExit -- ./$(NAME) maps/invalid_5.cub
+	leaks --atExit -- ./$(NAME) maps/invalid_6.cub
+	leaks --atExit -- ./$(NAME) maps/invalid_7.cub
+
 test: all
 	clear
 	@./$(NAME) maps/default.cub

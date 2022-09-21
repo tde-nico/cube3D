@@ -1,35 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/06 11:27:39 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/06 12:56:43 by tde-nico         ###   ########.fr       */
+/*   Created: 2022/09/08 11:04:40 by tde-nico          #+#    #+#             */
+/*   Updated: 2022/09/08 12:04:32 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <stdio.h>
 
-char	*get_next_line(int fd)
+double	get_ticks(void)
 {
-	int		byte;
-	char	buffer;
-	char	*line;
-
-	byte = 1;
-	line = ft_calloc(1, sizeof(char));
-	while (byte)
-	{
-		byte = read(fd, &buffer, 1);
-		if (buffer == '\n' || !byte)
-		{
-			if (!byte)
-				free(line);
-			break ;
-		}
-		line = ft_charjoin(line, buffer);
-	}
-	return (line);
+	printf("fps: %ld\n", time(NULL) * 1000);
+	return (time(NULL) * 1000);
 }

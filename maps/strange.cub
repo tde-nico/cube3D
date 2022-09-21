@@ -1,10 +1,23 @@
+
 NO ./res/img/wall_0.xpm
-SO ./res/img/wall_1.xpm
+
 WE ./res/img/wall_2.xpm
+SO ./res/img/wall_1.xpm
+
+
+
 EA ./res/img/wall_3.xpm
 
-F 220,100,0
+
+
 C 225,30,0
+
+F     220,100,0
+
+
+
+
+
 
            1111111111111111111111111
            1000000000110000000000001
