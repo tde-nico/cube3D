@@ -1,5 +1,3 @@
-ray casting
-texturing
 minimap
 doors
 animations

@@ -6,17 +6,24 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 09:36:45 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/16 10:17:18 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/16 12:10:44 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 /*
+	TEST
 nord	0	-1	-fov	0
 sud		0	1	fov		0
 west	1	0	0		-fov
 east	-1	0	0		fov
+
+	REAL
+nord	0	-1	fov		0
+sud		0	1	-fov	0
+west	-1	0	0		-fov
+east	1	0	0		fov
 */
 
 void	set_player_view(t_game *game)
@@ -33,16 +40,16 @@ void	set_player_view(t_game *game)
 	else if (dir == PLAYER_CHARACTERS[1])
 	{
 		game->player.dir.y = 1.0;
-		game->player.plane.x = PLAYER_FOV;
+		game->player.plane.x = -PLAYER_FOV;
 	}
 	else if (dir == PLAYER_CHARACTERS[2])
 	{
-		game->player.dir.x = 1.0;
+		game->player.dir.x = -1.0;
 		game->player.plane.y = -PLAYER_FOV;
 	}
 	else if (dir == PLAYER_CHARACTERS[3])
 	{
-		game->player.dir.x = -1.0;
+		game->player.dir.x = 1.0;
 		game->player.plane.y = PLAYER_FOV;
 	}
 }

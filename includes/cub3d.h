@@ -6,7 +6,7 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:51:34 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/16 11:30:22 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/16 12:01:19 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@
 # define RGB_RED 0x00FF0000
 # define RGB_GREEN 0x0000FF00
 # define RGB_BLUE 0x000000FF
-# define RGB_WHITE 0x00FFFFFF
 # define RGB_YELLOW 0x00FFFF00
+# define RGB_WHITE 0x00FFFFFF
 
 # define MAP_CHARACTERS " 01NSWE"
 # define PLAYER_CHARACTERS "NSWE"
@@ -101,6 +101,7 @@
 // "map_init" for map intitalizaiton
 // "inputs" for the input keys
 # define VERBOSE ""
+# define TEXTURE_MODE 1
 # define INVALID_TESTING 1
 # define NAME "cub3D"
 # define WIDTH 1280
@@ -253,6 +254,9 @@ void		start_game(t_game *game);
 char		*ft_charjoin(char *s1, char s2);
 char		**ft_arrdup(char **src);
 void		ft_strrev(char *str);
+
+//texture
+void		draw_texture(t_game *game, int x);
 
 //time
 u_int64_t	get_time(void);
