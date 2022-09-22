@@ -6,7 +6,7 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:51:34 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/16 12:48:05 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/20 09:46:41 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@
 # include "../libs/mlx_linux/mlx.h"
 # include <fcntl.h>
 # include <math.h>
-
-//#include <linux/input.h>
-//#include <linux/uinput.h>
 
 // Bonus
 # include <sys/time.h>
@@ -73,7 +70,6 @@
 # define K_UP 126
 
 // MLX Linux Keys
-
 # define LK_W 119
 # define LK_A 97
 # define LK_S 115
@@ -88,8 +84,10 @@
 # define RGB_BLUE 0x000000FF
 # define RGB_YELLOW 0x00FFFF00
 # define RGB_WHITE 0x00FFFFFF
+# define RGB_DARK_GREY 0x00282828
 
-# define MAP_CHARACTERS " 01NSWE"
+// "D" is the door character, "O" is the open door character
+# define MAP_CHARACTERS " 01NSWEDO"
 # define PLAYER_CHARACTERS "NSWE"
 # define NORD_TEXTURE "NO"
 # define SUD_TEXTURE "SO"
@@ -113,6 +111,10 @@
 # define PLAYER_SPEED 3.0
 # define PLAYER_ROTATION_SPEED 2.0
 # define HIT_BOX 0.3
+
+// Door Texture
+# define DOOR_PATH "res/img/eagle.xpm"
+# define DOOR_DIST 3
 
 typedef struct s_vec2
 {
@@ -174,15 +176,26 @@ typedef struct s_raycaster
 	int		color;
 }	t_raycaster;
 
+typedef struct s_minimap
+{
+	t_image	map;
+	int		x;
+	int		y;
+	int		width;
+	int		height;
+	t_vec2	begin_ray;
+	t_vec2	end_ray;
+}	t_minimap;
+
 typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
 	t_image		screen;
 	t_map		*map;
-	t_image		walls[4];
-	int			wall_widths[4];
-	int			wall_heights[4];
+	t_image		walls[5];
+	int			wall_widths[5];
+	int			wall_heights[5];
 	t_player	player;
 	u_int64_t	time;
 	u_int64_t	old_time;
@@ -190,6 +203,7 @@ typedef struct s_game
 	int			fps;
 	t_raycaster	ray;
 	int			mouse_prev_x;
+	t_minimap	mini;
 }	t_game;
 
 //args_check
@@ -228,6 +242,10 @@ t_map		*read_map(char *fname);
 int			find_player_pos(t_map *map);
 int			validate_map(t_map *map);
 
+//minimap
+void		draw_minimap(t_game *game);
+void		draw_minimap_rays(t_game *game);
+
 //mlx_colors
 int			create_trgb(int t, int r, int g, int b);
 int			get_t(int trgb);
@@ -240,7 +258,8 @@ void		draw_line(t_game *game, t_vec2 begin, t_vec2 end, int color);
 void		my_mlx_pixel_put(t_image *img, int x, int y, int color);
 void		draw_line_on(t_image *img, t_vec2 begin, t_vec2 end, int color);
 void		draw_rect_on(t_image *img, t_vec2 begin, t_vec2 end, int color);
-void		draw_empty_rect_on(t_image *img, t_vec2 begin, t_vec2 end, int color);
+void		draw_empty_rect_on(t_image *img, t_vec2 begin, t_vec2 end,
+				int color);
 
 //raycaster_flat
 void		raycaster_flat(t_game *game);

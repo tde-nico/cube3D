@@ -6,7 +6,7 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 10:39:22 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/16 11:55:13 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/19 11:06:48 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ void	perform_dda(t_game *game)
 			game->ray.map_y += game->ray.step_y;
 			game->ray.side = 1;
 		}
-		if (game->map->map[game->ray.map_y][game->ray.map_x] == '1')
+		if (game->map->map[game->ray.map_y][game->ray.map_x] == '1'
+			|| game->map->map[game->ray.map_y][game->ray.map_x] == 'D')
 			game->ray.hit = 1;
 	}
 }
@@ -110,5 +111,6 @@ void	raycaster_flat(t_game *game)
 		perform_dda(game);
 		get_line_size(game);
 		draw_texture(game, x);
+		draw_minimap_rays(game);
 	}
 }

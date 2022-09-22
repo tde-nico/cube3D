@@ -6,7 +6,7 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 10:54:15 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/16 12:39:58 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/19 10:38:49 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,16 @@ void	draw_line_on(t_image *img, t_vec2 begin, t_vec2 end, int color)
 	double	py;
 	int		pixels;
 
-	dx = end.x - (int)begin.x;
-	dy = end.y - (int)begin.y;
-	pixels = sqrt((dx * dx) + (dy * dy));
+	dx = end.x - begin.x;
+	dy = end.y - begin.y;
+	pixels = sqrt((dx * dx) + (dy * dy)) + 1;
 	dx /= pixels;
 	dy /= pixels;
-	px = (int)begin.x;
-	py = (int)begin.y;
+	px = begin.x;
+	py = begin.y;
 	while (pixels)
 	{
-		my_mlx_pixel_put(img, px, py, color);
+		my_mlx_pixel_put(img, (int)px, (int)py, color);
 		px += dx;
 		py += dy;
 		--pixels;
@@ -90,6 +90,7 @@ void	draw_empty_rect_on(t_image *img, t_vec2 begin, t_vec2 end, int color)
 	tmp.y = end.y;
 	draw_line_on(img, begin, tmp, color);
 	draw_line_on(img, tmp, end, color);
+	end.y += 1;
 	tmp.x = end.x;
 	tmp.y = begin.y;
 	draw_line_on(img, begin, tmp, color);

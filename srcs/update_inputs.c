@@ -6,7 +6,7 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:07:17 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/16 10:20:01 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/19 11:19:47 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 int	is_colliding(t_game *game, double y, double x)
 {
 	if (game->map->map[(int)y][(int)x] == '0')
+		return (0);
+	if (game->map->map[(int)y][(int)x] == 'O')
+		return (0);
+	if (game->map->map[(int)y][(int)x] == 'D')
 		return (0);
 	return (1);
 }

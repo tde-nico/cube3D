@@ -6,7 +6,7 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 11:35:00 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/16 13:00:56 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/20 09:53:13 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,39 +40,6 @@ void	draw_background(t_game *game)
 	}
 }
 
-void	draw_minimap(t_game *game)
-{
-	t_vec2	begin;
-	t_vec2	end;
-	int		y;
-	int		x;
-
-	begin.x = WIDTH - MINIMAP_TILE_SIZE * (game->map->width + 1);
-	begin.y = MINIMAP_TILE_SIZE;
-	end.x = WIDTH - MINIMAP_TILE_SIZE;
-	end.y = MINIMAP_TILE_SIZE * (game->map->height + 1);
-	draw_rect_on(&game->screen, begin, end, RGB_WHITE);
-	y = -1;
-	while (game->map->map[++y])
-	{
-		x = -1;
-		while (game->map->map[y][++x])
-		{
-			if (game->map->map[y][x] == '1')
-			{
-				//ft_printf("wall: %d %d\n", y, x);
-				begin.x = (double)(WIDTH + MINIMAP_TILE_SIZE * (-game->map->width - 1 + x));
-				begin.y = (double)(MINIMAP_TILE_SIZE * (-game->map->height - 1 + y));
-				end.x = begin.x + MINIMAP_TILE_SIZE;
-				end.y = begin.y + MINIMAP_TILE_SIZE;
-				//printf("%f\n", (double)( y));
-				//printf("%f %f %f %f\n", begin.x, begin.y, end.x, end.y);
-				draw_empty_rect_on(&game->screen, begin, end, RGB_BLUE);
-			}
-		}
-	}
-}
-
 void	update_time(t_game *game)
 {
 	char	*curr_fps;
@@ -94,14 +61,41 @@ void	update_time(t_game *game)
 	free(curr_fps);
 }
 
+int	check_proximity(t_game *game)
+{
+	int		x;
+	int		y;
+
+	y = -1;
+	while (game->map->map[++y])
+	{
+		x = -1;
+		while (game->map->map[y][++x])
+		{
+			if (ft_strchr("D", game->map->map[y][x]) && (sqrtf(powf(x
+				- game->player.pos.x, 2.0) + powf(y
+				- game->player.pos.y, 2.0))) < DOOR_DIST)
+				game->map->map[y][x] = 'O';
+			else if (ft_strchr("O", game->map->map[y][x]) && (sqrtf(powf(x
+				- game->player.pos.x, 2.0) + powf(y
+				- game->player.pos.y, 2.0))) > DOOR_DIST)
+				game->map->map[y][x] = 'D';
+		}
+	}
+	return (0);
+}
+
 int	update(t_game *game)
 {
 	mlx_clear_window(game->mlx, game->win);
+	draw_minimap(game);
 	draw_background(game);
 	raycaster_flat(game);
-	draw_minimap(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->screen.img, 0, 0);
+	mlx_put_image_to_window(game->mlx, game->win, game->mini.map.img,
+		game->mini.x, game->mini.y);
 	update_time(game);
 	update_inputs(game);
+	check_proximity(game);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:27:39 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/16 11:31:17 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/19 11:34:53 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,10 @@ int	free_images(t_game *game)
 		mlx_destroy_image(game->mlx, game->walls[2].img);
 	if (game->walls[3].img)
 		mlx_destroy_image(game->mlx, game->walls[3].img);
+	if (game->walls[4].img)
+		mlx_destroy_image(game->mlx, game->walls[4].img);
+	if (game->mini.map.img)
+		mlx_destroy_image(game->mlx, game->mini.map.img);
 	return (1);
 }
 

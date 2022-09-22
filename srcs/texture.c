@@ -6,7 +6,7 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 11:44:10 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/16 12:25:05 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/20 09:51:39 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ void	render_texture(t_game *game, int x)
 	}
 }
 
-void	draw_texture(t_game *game, int x)
+void	select_texture(t_game *game)
 {
-	int	colors[4];
-
-	if (game->ray.side == 1 && game->player.pos.y <= game->ray.map_y)
+	if (game->map->map[game->ray.map_y][game->ray.map_x] == 'D')
+		game->ray.color = 4;
+	else if (game->ray.side == 1 && game->player.pos.y <= game->ray.map_y)
 		game->ray.color = 1;
 	else if (game->ray.side == 1)
 		game->ray.color = 0;
@@ -69,6 +69,13 @@ void	draw_texture(t_game *game, int x)
 		game->ray.color = 3;
 	else
 		game->ray.color = 0;
+}
+
+void	draw_texture(t_game *game, int x)
+{
+	int	colors[4];
+
+	select_texture(game);
 	if (TEXTURE_MODE)
 		render_texture(game, x);
 	else

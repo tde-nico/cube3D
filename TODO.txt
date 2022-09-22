@@ -1,3 +1,2 @@
-minimap
 doors
 animations

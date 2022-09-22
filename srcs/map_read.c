@@ -6,7 +6,7 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:27:39 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/07 11:39:09 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/19 10:30:18 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ void	get_map_size(t_map *map)
 	y = -1;
 	while (map->map[++y])
 	{
+		if (map->map[y][0] == 0)
+			break ;
 		x = 0;
 		while (map->map[y][x])
 			++x;
