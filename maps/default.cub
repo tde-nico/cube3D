@@ -1,7 +1,7 @@
-NO ./res/img/wall_0.xpm
-SO ./res/img/wall_1.xpm
-WE ./res/img/wall_2.xpm
-EA ./res/img/wall_3.xpm
+NO ./res/img/redbrick.xpm
+SO ./res/img/greystone.xpm
+WE ./res/img/purplestone.xpm
+EA ./res/img/wood.xpm
 
 F 25,25,25
 C 0,0,20

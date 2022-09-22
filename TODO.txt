@@ -1,4 +1,3 @@
-fish eye
 ray casting
 texturing
 minimap

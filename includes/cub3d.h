@@ -6,7 +6,7 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:51:34 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/16 10:12:27 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/16 11:30:22 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@
 # define WIDTH 1280
 # define HEIGHT 720
 # define FPS_LOCK 30
-# define TILE_SIZE 64
+# define TEXTURE_SIZE 64
 # define MINIMAP_TILE_SIZE 5
 # define PLAYER_FOV 0.66
 # define PLAYER_SPEED 3.0
@@ -179,7 +179,7 @@ typedef struct s_game
 	void		*win;
 	t_image		screen;
 	t_map		*map;
-	void		*walls[4];
+	t_image		walls[4];
 	int			wall_widths[4];
 	int			wall_heights[4];
 	t_player	player;

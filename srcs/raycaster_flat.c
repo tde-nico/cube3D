@@ -6,7 +6,7 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 10:39:22 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/16 10:12:46 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/16 11:37:36 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,29 +98,66 @@ void	get_line_size(t_game *game)
 		game->ray.draw_end.y = HEIGHT - 1;
 }
 
+void	texture_test(t_game *game, int x)
+{
+	double	wall_x;
+	int		tex_x;
+	double	step;
+	double	tex_pos;
+	int		tex_y;
+	unsigned int		color;
+	int		y;
+
+	if (game->ray.side == 0)
+		wall_x = game->player.pos.y + game->ray.perp_wall_dist
+			* game->ray.ray_dir.y;
+	else
+		wall_x = game->player.pos.x + game->ray.perp_wall_dist
+			* game->ray.ray_dir.x;
+	wall_x -= (int)(wall_x);
+	tex_x = (int)(wall_x * (double)(TEXTURE_SIZE));
+	if (game->ray.side == 0 && game->ray.ray_dir.x > 0)
+		tex_x = TEXTURE_SIZE - tex_x - 1;
+	if (game->ray.side == 1 && game->ray.ray_dir.y < 0)
+		tex_x = TEXTURE_SIZE - tex_x - 1;
+	step = 1.0 * TEXTURE_SIZE / game->ray.line_height;
+	tex_pos = (game->ray.draw_start.y - HEIGHT / 2 + game->ray.line_height / 2)
+		* step;
+	y = game->ray.draw_start.y - 1;
+	while (++y < game->ray.draw_end.y)
+	{
+		tex_y = (int)tex_pos & (TEXTURE_SIZE - 1);
+		tex_pos += step;
+		color = *(unsigned int *)(game->walls[game->ray.color].addr + 4 * (TEXTURE_SIZE * tex_y + tex_x));
+		//printf("%x\n", color);
+		my_mlx_pixel_put(&game->screen, x, y, color);
+	}
+}
+
 void	raycaster_flat(t_game *game)
 {
 	int		x;
 
-	x = -3;
-	while (x < (WIDTH - 3))
+	x = -1;
+	while (x < (WIDTH - 1))
 	{
-		x += 3;
+		x += 1;
 		init_raycast(game, x);
 		calculate_side_dist_and_step(game);
 		perform_dda(game);
 		get_line_size(game);
 		if (game->ray.side == 1 && game->player.pos.y <= game->ray.map_y)
-			game->ray.color = RGB_GREEN;
+			game->ray.color = 1;
 		else if (game->ray.side == 1)
-			game->ray.color = RGB_BLUE;
+			game->ray.color = 0;
 		else if (game->ray.side == 0 && game->player.pos.x <= game->ray.map_x)
-			game->ray.color = RGB_RED;
+			game->ray.color = 2;
 		else if (game->ray.side == 0)
-			game->ray.color = RGB_YELLOW;
+			game->ray.color = 3;
 		else
-			game->ray.color = RGB_WHITE;
-		draw_line_on(&game->screen, game->ray.draw_start,
-			game->ray.draw_end, game->ray.color);
+			game->ray.color = 0;
+		texture_test(game, x);
+		/*draw_line_on(&game->screen, game->ray.draw_start,
+			game->ray.draw_end, game->ray.color);*/
 	}
 }

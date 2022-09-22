@@ -6,7 +6,7 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:27:39 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/13 13:00:36 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/16 11:31:17 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,14 @@ int	free_images(t_game *game)
 {
 	if (game->screen.img)
 		mlx_destroy_image(game->mlx, game->screen.img);
-	if (game->walls[0])
-		mlx_destroy_image(game->mlx, game->walls[0]);
-	if (game->walls[1])
-		mlx_destroy_image(game->mlx, game->walls[1]);
-	if (game->walls[2])
-		mlx_destroy_image(game->mlx, game->walls[2]);
-	if (game->walls[3])
-		mlx_destroy_image(game->mlx, game->walls[3]);
+	if (game->walls[0].img)
+		mlx_destroy_image(game->mlx, game->walls[0].img);
+	if (game->walls[1].img)
+		mlx_destroy_image(game->mlx, game->walls[1].img);
+	if (game->walls[2].img)
+		mlx_destroy_image(game->mlx, game->walls[2].img);
+	if (game->walls[3].img)
+		mlx_destroy_image(game->mlx, game->walls[3].img);
 	return (1);
 }
 
