@@ -6,7 +6,7 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 08:39:09 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/14 12:55:46 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/16 12:23:08 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	input_handler_down(int key, t_game *game)
 		game->player.mov_dir.y = -1;
 	else if (key == K_D || key == LK_D)
 		game->player.mov_dir.y = 1;
-	else if (key == K_LEFT || key ==LK_LEFT)
+	else if (key == K_LEFT || key == LK_LEFT)
 		game->player.rot_dir = -1;
 	else if (key == K_RIGHT || key == LK_RIGHT)
 		game->player.rot_dir = 1;
@@ -43,7 +43,8 @@ int	input_handler_up(int key, t_game *game)
 		game->player.mov_dir.x = 0;
 	else if (key == K_A || key == K_D || key == LK_A || key == LK_D)
 		game->player.mov_dir.y = 0;
-	else if (key == K_LEFT || key == K_RIGHT || key == LK_LEFT || key == LK_RIGHT)
+	else if (key == K_LEFT || key == K_RIGHT
+		|| key == LK_LEFT || key == LK_RIGHT)
 		game->player.rot_dir = 0;
 	return (0);
 }

@@ -92,7 +92,8 @@ re: fclean all
 bonus: all
 
 norm:
-	norminette $(LIBFT_DIR) $(INCLUDE) $(SRC_DIR)
+	clear
+	@norminette $(LIBFT_DIR) $(INCLUDE) $(SRC_DIR)
 
 test_invalid: all
 	./$(NAME) maps/invalid_0.cub

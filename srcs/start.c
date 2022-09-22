@@ -6,7 +6,7 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 09:36:45 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/16 12:10:44 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/16 12:24:36 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,20 +71,8 @@ void	start_player(t_game *game)
 		(int)game->map->player_pos.x] = '0';
 }
 
-void	reverse_map(t_game *game)
-{
-	int	i;
-
-	i = -1;
-	while (game->map->map[++i])
-	{
-		ft_strrev(game->map->map[i]);
-	}
-}
-
 void	start_game(t_game *game)
 {
-	//reverse_map(game);
 	start_player(game);
 	game->time = get_time();
 	game->old_time = get_time();

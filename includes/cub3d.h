@@ -6,7 +6,7 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:51:34 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/16 12:01:19 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/16 12:48:05 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@
 # define HEIGHT 720
 # define FPS_LOCK 30
 # define TEXTURE_SIZE 64
-# define MINIMAP_TILE_SIZE 5
+# define MINIMAP_TILE_SIZE 10
 # define PLAYER_FOV 0.66
 # define PLAYER_SPEED 3.0
 # define PLAYER_ROTATION_SPEED 2.0
@@ -239,6 +239,8 @@ int			get_b(int trgb);
 void		draw_line(t_game *game, t_vec2 begin, t_vec2 end, int color);
 void		my_mlx_pixel_put(t_image *img, int x, int y, int color);
 void		draw_line_on(t_image *img, t_vec2 begin, t_vec2 end, int color);
+void		draw_rect_on(t_image *img, t_vec2 begin, t_vec2 end, int color);
+void		draw_empty_rect_on(t_image *img, t_vec2 begin, t_vec2 end, int color);
 
 //raycaster_flat
 void		raycaster_flat(t_game *game);
