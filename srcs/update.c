@@ -6,7 +6,7 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 11:35:00 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/20 09:53:13 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/19 11:18:48 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,30 +61,6 @@ void	update_time(t_game *game)
 	free(curr_fps);
 }
 
-int	check_proximity(t_game *game)
-{
-	int		x;
-	int		y;
-
-	y = -1;
-	while (game->map->map[++y])
-	{
-		x = -1;
-		while (game->map->map[y][++x])
-		{
-			if (ft_strchr("D", game->map->map[y][x]) && (sqrtf(powf(x
-				- game->player.pos.x, 2.0) + powf(y
-				- game->player.pos.y, 2.0))) < DOOR_DIST)
-				game->map->map[y][x] = 'O';
-			else if (ft_strchr("O", game->map->map[y][x]) && (sqrtf(powf(x
-				- game->player.pos.x, 2.0) + powf(y
-				- game->player.pos.y, 2.0))) > DOOR_DIST)
-				game->map->map[y][x] = 'D';
-		}
-	}
-	return (0);
-}
-
 int	update(t_game *game)
 {
 	mlx_clear_window(game->mlx, game->win);
@@ -96,6 +72,5 @@ int	update(t_game *game)
 		game->mini.x, game->mini.y);
 	update_time(game);
 	update_inputs(game);
-	check_proximity(game);
 	return (0);
 }

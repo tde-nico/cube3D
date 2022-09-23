@@ -177,11 +177,10 @@ tar: fclean
 	@echo "$(GREEN)[+] Made tar$(END)"
 
 clean_mac:
-	@find . -name "._*" -delete
-	@find . -name ".DS_Store" -delete
+	find . -name "._*" -delete
 
 clean_cache:
-	@rm -rf ~/Library/Caches && rm -rf ~/Library/Application\ Support/Code/Cache && rm -rf ~/Library/Application\ Support/Code/User/workspaceStorage
+	rm -rf ~/Library/Caches && rm -rf ~/Library/Application\ Support/Code/Cache && rm -rf ~/Library/Application\ Support/Code/User/workspaceStorage
 
 
 

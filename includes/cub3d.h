@@ -6,7 +6,7 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:51:34 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/20 09:46:41 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/19 12:36:23 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@
 
 // Door Texture
 # define DOOR_PATH "res/img/eagle.xpm"
-# define DOOR_DIST 3
 
 typedef struct s_vec2
 {
@@ -204,6 +203,7 @@ typedef struct s_game
 	t_raycaster	ray;
 	int			mouse_prev_x;
 	t_minimap	mini;
+	int			c;
 }	t_game;
 
 //args_check
