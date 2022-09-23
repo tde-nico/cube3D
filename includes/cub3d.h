@@ -6,7 +6,7 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:51:34 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/19 12:36:23 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/20 12:27:43 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@
 # define RGB_WHITE 0x00FFFFFF
 # define RGB_DARK_GREY 0x00282828
 
-// "D" is the door character, "O" is the open door character
+// "D" is the door character
+// "O" is the open door character
 # define MAP_CHARACTERS " 01NSWEDO"
 # define PLAYER_CHARACTERS "NSWE"
 # define NORD_TEXTURE "NO"
@@ -100,7 +101,7 @@
 // "inputs" for the input keys
 # define VERBOSE ""
 # define TEXTURE_MODE 1
-# define INVALID_TESTING 1
+# define INVALID_TESTING 0
 # define NAME "cub3D"
 # define WIDTH 1280
 # define HEIGHT 720
@@ -113,7 +114,18 @@
 # define HIT_BOX 0.3
 
 // Door Texture
-# define DOOR_PATH "res/img/eagle.xpm"
+# define DOOR_PATH_0 "res/door/door_0.xpm"
+# define DOOR_PATH_1 "res/door/door_1.xpm"
+# define DOOR_PATH_2 "res/door/door_2.xpm"
+# define DOOR_PATH_3 "res/door/door_3.xpm"
+# define DOOR_PATH_4 "res/door/door_4.xpm"
+# define DOOR_PATH_5 "res/door/door_5.xpm"
+# define DOOR_PATH_6 "res/door/door_6.xpm"
+# define DOOR_PATH_7 "res/door/door_7.xpm"
+# define DOOR_PATH_8 "res/door/door_8.xpm"
+
+# define DOOR_DIST 3
+# define DOOR_FRAMES 2
 
 typedef struct s_vec2
 {
@@ -192,9 +204,9 @@ typedef struct s_game
 	void		*win;
 	t_image		screen;
 	t_map		*map;
-	t_image		walls[5];
-	int			wall_widths[5];
-	int			wall_heights[5];
+	t_image		walls[13];
+	int			wall_widths[13];
+	int			wall_heights[13];
 	t_player	player;
 	u_int64_t	time;
 	u_int64_t	old_time;
@@ -203,7 +215,7 @@ typedef struct s_game
 	t_raycaster	ray;
 	int			mouse_prev_x;
 	t_minimap	mini;
-	int			c;
+	int			door_frame;
 }	t_game;
 
 //args_check
@@ -234,6 +246,9 @@ int			mouse_handler(int x, int y, t_game *game);
 //main
 int			clean_exit(t_game *game);
 int			exit_game(void);
+
+//map_extra_check
+int			extra_map_integrity_check(char **map);
 
 //map_read
 t_map		*read_map(char *fname);

@@ -6,7 +6,7 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:27:39 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/09 17:35:53 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/20 12:11:48 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	verify_map_integrity(char **map)
 		{
 			if (!ft_strchr(MAP_CHARACTERS, map[y][x]))
 				return (ft_printf("Error\nWrong characters in map\n"));
-			if (MAP_CHARACTERS[1] == map[y][x] && ((!y || !x || !map[y + 1]
+			if (ft_strchr("0NSWEDO", map[y][x]) && ((!y || !x || !map[y + 1]
 				|| (x && (map[y][x - 1] == ' ' || map[y][x - 1] == '\0'))
 						|| (x < ft_strlen(map[y]) && (map[y][x + 1] == ' '
 							|| map[y][x + 1] == '\0')))

@@ -6,7 +6,7 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 11:44:10 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/19 13:00:55 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/20 12:24:45 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,38 +55,20 @@ void	render_texture(t_game *game, int x)
 	}
 }
 
-int	check_proximity(t_game *game)
-{
-	int		x;
-	int		y;
-
-	y = -1;
-	while (game->map->map[++y])
-	{
-		x = -1;
-		while (game->map->map[y][++x])
-		{
-			if (ft_strchr("D", game->map->map[y][x]) && (sqrtf(powf(x
-				- game->player.pos.x, 2.0) + powf(y
-				- game->player.pos.y, 2.0))) < 3)
-				return (1);
-			else if (ft_strchr("O", game->map->map[y][x]) && (sqrtf(powf(x
-				- game->player.pos.x, 2.0) + powf(y
-				- game->player.pos.y, 2.0))) > 3)
-			{
-				game->map->map[y][x] = 'D';
-				game->c = 0;
-				return (2);
-			}
-		}
-	}
-	return (0);
-}
-
 void	select_texture(t_game *game)
 {
 	if (game->map->map[game->ray.map_y][game->ray.map_x] == 'D')
-		game->ray.color = 4;
+	{
+		if (game->door_frame < (DOOR_FRAMES * 14))
+			game->ray.color = 4;
+		else if (game->door_frame < (DOOR_FRAMES * 23))
+			game->ray.color = (game->door_frame / DOOR_FRAMES) - 10;
+		else
+		{
+			game->ray.color = 4;
+			game->door_frame = 0;
+		}
+	}
 	else if (game->ray.side == 1 && game->player.pos.y <= game->ray.map_y)
 		game->ray.color = 1;
 	else if (game->ray.side == 1)
@@ -103,14 +85,6 @@ void	draw_texture(t_game *game, int x)
 {
 	int	colors[4];
 
-	if (check_proximity(game) == 1
-		&& game->map->map[game->ray.map_y][game->ray.map_x] == 'D')
-	{
-		game->ray.draw_start.y += -sqrtf(powf(game->ray.map_y - game->player.pos.x, 2.0)
-				+ powf(game->ray.map_x - game->player.pos.y, 2.0)) * TEXTURE_SIZE ;
-		//game->map->map[game->ray.map_y][game->ray.map_x] = 'O';
-		//return ;
-	}
 	select_texture(game);
 	if (TEXTURE_MODE)
 		render_texture(game, x);
@@ -120,6 +94,7 @@ void	draw_texture(t_game *game, int x)
 		colors[1] = RGB_GREEN;
 		colors[2] = RGB_RED;
 		colors[3] = RGB_YELLOW;
+		game->ray.color %= 4;
 		draw_line_on(&game->screen, game->ray.draw_start,
 			game->ray.draw_end, colors[game->ray.color]);
 	}

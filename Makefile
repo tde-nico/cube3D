@@ -104,6 +104,12 @@ test_invalid: all
 	./$(NAME) maps/invalid_5.cub
 	./$(NAME) maps/invalid_6.cub
 	./$(NAME) maps/invalid_7.cub
+	./$(NAME) maps/invalid_8.cub
+	./$(NAME) maps/invalid_9.cub
+	./$(NAME) maps/invalid_10.cub
+	./$(NAME) maps/invalid_11.cub
+	./$(NAME) maps/invalid_12.cub
+	./$(NAME) maps/invalid_13.cub
 	./$(NAME) maps/invalid_color_0.cub
 	./$(NAME) maps/invalid_color_1.cub
 	./$(NAME) maps/invalid_no_colors.cub
@@ -120,6 +126,12 @@ val_invalid: all
 	valgrind --leak-check=full ./$(NAME) maps/invalid_5.cub
 	valgrind --leak-check=full ./$(NAME) maps/invalid_6.cub
 	valgrind --leak-check=full ./$(NAME) maps/invalid_7.cub
+	valgrind --leak-check=full ./$(NAME) maps/invalid_8.cub
+	valgrind --leak-check=full ./$(NAME) maps/invalid_9.cub
+	valgrind --leak-check=full ./$(NAME) maps/invalid_10.cub
+	valgrind --leak-check=full ./$(NAME) maps/invalid_11.cub
+	valgrind --leak-check=full ./$(NAME) maps/invalid_12.cub
+	valgrind --leak-check=full ./$(NAME) maps/invalid_13.cub
 	valgrind --leak-check=full ./$(NAME) maps/invalid_color_0.cub
 	valgrind --leak-check=full ./$(NAME) maps/invalid_color_1.cub
 	valgrind --leak-check=full ./$(NAME) maps/invalid_no_colors.cub
@@ -136,13 +148,18 @@ leaks_invalid: all
 	leaks --atExit -- ./$(NAME) maps/invalid_5.cub
 	leaks --atExit -- ./$(NAME) maps/invalid_6.cub
 	leaks --atExit -- ./$(NAME) maps/invalid_7.cub
+	leaks --atExit -- ./$(NAME) maps/invalid_8.cub
+	leaks --atExit -- ./$(NAME) maps/invalid_9.cub
+	leaks --atExit -- ./$(NAME) maps/invalid_10.cub
+	leaks --atExit -- ./$(NAME) maps/invalid_11.cub
+	leaks --atExit -- ./$(NAME) maps/invalid_12.cub
+	leaks --atExit -- ./$(NAME) maps/invalid_13.cub
 	leaks --atExit -- ./$(NAME) maps/invalid_color_0.cub
 	leaks --atExit -- ./$(NAME) maps/invalid_color_1.cub
 	leaks --atExit -- ./$(NAME) maps/invalid_no_colors.cub
 	leaks --atExit -- ./$(NAME) maps/invalid_no_map.cub
 	leaks --atExit -- ./$(NAME) maps/invalid_no_texture.cub
 	leaks --atExit -- ./$(NAME) maps/invalid_texture.cub
-	echo total leaked bytes
 
 grep_leaks:
 	make leaks_invalid | grep "total leaked bytes"
@@ -172,15 +189,17 @@ copy:
 backup: copy
 up: copy
 
-tar: fclean
+tar: clean_mac fclean
 	@tar -cf ../$(NAME).tar .
 	@echo "$(GREEN)[+] Made tar$(END)"
 
 clean_mac:
-	find . -name "._*" -delete
+	@find . -name "._*" -delete
+	@find . -name ".DS_Store" -delete
+	@echo "$(YELLOW)[+] Nasty MAC files cleaned$(END)"
 
 clean_cache:
-	rm -rf ~/Library/Caches && rm -rf ~/Library/Application\ Support/Code/Cache && rm -rf ~/Library/Application\ Support/Code/User/workspaceStorage
+	@rm -rf ~/Library/Caches && rm -rf ~/Library/Application\ Support/Code/Cache && rm -rf ~/Library/Application\ Support/Code/User/workspaceStorage
 
 
 

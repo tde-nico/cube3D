@@ -6,7 +6,7 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 09:36:45 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/16 12:24:36 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/20 12:21:52 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,25 @@ void	set_player_view(t_game *game)
 	}
 }
 
+void	fix_player_pos(t_game *game)
+{
+	int	y;
+	int	x;
+
+	y = -1;
+	while (game->map->map[++y])
+	{
+		x = -1;
+		while (game->map->map[y][++x])
+		{
+			if (ft_strchr(PLAYER_CHARACTERS, game->map->map[y][x]))
+			{
+				game->map->map[y][x] = '0';
+			}
+		}
+	}
+}
+
 void	start_player(t_game *game)
 {
 	find_player_pos(game->map);
@@ -67,8 +86,7 @@ void	start_player(t_game *game)
 	game->player.mov_dir.y = 0;
 	game->player.rot_dir = 0;
 	set_player_view(game);
-	game->map->map[(int)game->map->player_pos.y][
-		(int)game->map->player_pos.x] = '0';
+	fix_player_pos(game);
 }
 
 void	start_game(t_game *game)
@@ -77,4 +95,5 @@ void	start_game(t_game *game)
 	game->time = get_time();
 	game->old_time = get_time();
 	game->mouse_prev_x = WIDTH / 2;
+	game->door_frame = 0;
 }
