@@ -112,20 +112,12 @@ test_invalid: all
 	./$(NAME) maps/invalid_13.cub
 	./$(NAME) maps/invalid_color_0.cub
 	./$(NAME) maps/invalid_color_1.cub
-	./$(NAME) maps/invalid_color_2.cub
-	./$(NAME) maps/invalid_color_3.cub
-	./$(NAME) maps/invalid_color_4.cub
-	./$(NAME) maps/invalid_double_player.cub
-	./$(NAME) maps/invalid_key.cub
 	./$(NAME) maps/invalid_no_colors.cub
 	./$(NAME) maps/invalid_no_map.cub
 	./$(NAME) maps/invalid_no_texture.cub
-	./$(NAME) maps/invalid_texture_0.cub
-	./$(NAME) maps/invalid_texture_1.cub
-	./$(NAME) maps/invalid_texture_2.cub
+	./$(NAME) maps/invalid_texture.cub
 
 val_invalid: all
-	valgrind --leak-check=full ./$(NAME) maps/invalid_0.cub
 	valgrind --leak-check=full ./$(NAME) maps/invalid_0.cub
 	valgrind --leak-check=full ./$(NAME) maps/invalid_1.cub
 	valgrind --leak-check=full ./$(NAME) maps/invalid_2.cub
@@ -142,21 +134,12 @@ val_invalid: all
 	valgrind --leak-check=full ./$(NAME) maps/invalid_13.cub
 	valgrind --leak-check=full ./$(NAME) maps/invalid_color_0.cub
 	valgrind --leak-check=full ./$(NAME) maps/invalid_color_1.cub
-	valgrind --leak-check=full ./$(NAME) maps/invalid_color_2.cub
-	valgrind --leak-check=full ./$(NAME) maps/invalid_color_3.cub
-	valgrind --leak-check=full ./$(NAME) maps/invalid_color_4.cub
-	valgrind --leak-check=full ./$(NAME) maps/invalid_double_player.cub
-	valgrind --leak-check=full ./$(NAME) maps/invalid_key.cub
 	valgrind --leak-check=full ./$(NAME) maps/invalid_no_colors.cub
 	valgrind --leak-check=full ./$(NAME) maps/invalid_no_map.cub
 	valgrind --leak-check=full ./$(NAME) maps/invalid_no_texture.cub
-	valgrind --leak-check=full ./$(NAME) maps/invalid_texture_0.cub
-	valgrind --leak-check=full ./$(NAME) maps/invalid_texture_1.cub
-	valgrind --leak-check=full ./$(NAME) maps/invalid_texture_2.cub
+	valgrind --leak-check=full ./$(NAME) maps/invalid_texture.cub
 
 leaks_invalid: all
-	leaks --atExit -- ./$(NAME)
-	leaks --atExit -- ./$(NAME) 1 2
 	leaks --atExit -- ./$(NAME) maps/invalid_0.cub
 	leaks --atExit -- ./$(NAME) maps/invalid_1.cub
 	leaks --atExit -- ./$(NAME) maps/invalid_2.cub
@@ -173,17 +156,10 @@ leaks_invalid: all
 	leaks --atExit -- ./$(NAME) maps/invalid_13.cub
 	leaks --atExit -- ./$(NAME) maps/invalid_color_0.cub
 	leaks --atExit -- ./$(NAME) maps/invalid_color_1.cub
-	leaks --atExit -- ./$(NAME) maps/invalid_color_2.cub
-	leaks --atExit -- ./$(NAME) maps/invalid_color_3.cub
-	leaks --atExit -- ./$(NAME) maps/invalid_color_4.cub
-	leaks --atExit -- ./$(NAME) maps/invalid_double_player.cub
-	leaks --atExit -- ./$(NAME) maps/invalid_key.cub
 	leaks --atExit -- ./$(NAME) maps/invalid_no_colors.cub
 	leaks --atExit -- ./$(NAME) maps/invalid_no_map.cub
 	leaks --atExit -- ./$(NAME) maps/invalid_no_texture.cub
-	leaks --atExit -- ./$(NAME) maps/invalid_texture_0.cub
-	leaks --atExit -- ./$(NAME) maps/invalid_texture_1.cub
-	leaks --atExit -- ./$(NAME) maps/invalid_texture_2.cub
+	leaks --atExit -- ./$(NAME) maps/invalid_texture.cub
 
 grep_leaks:
 	make leaks_invalid | grep "total leaked bytes"

@@ -6,7 +6,7 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:27:39 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/21 10:42:51 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/16 11:25:43 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,7 @@ int	main(int argc, char **argv)
 	game.map = read_map(argv[1]);
 	if (!game.map)
 		return (!INVALID_TESTING);
-	if (start_game(&game))
-	{
-		free_map(game.map);
-		return (!INVALID_TESTING);
-	}
+	start_game(&game);
 	init_game(&game);
 	mlx_hook(game.win, ON_KEYDOWN, 1L << 0, input_handler_down, (void *)&game);
 	mlx_hook(game.win, ON_KEYUP, 1L << 1, input_handler_up, (void *)&game);

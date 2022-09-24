@@ -6,7 +6,7 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 09:36:45 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/21 09:40:06 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/20 12:21:52 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	set_player_view(t_game *game)
 	}
 }
 
-int	fix_player_pos(t_game *game)
+void	fix_player_pos(t_game *game)
 {
 	int	y;
 	int	x;
@@ -67,14 +67,13 @@ int	fix_player_pos(t_game *game)
 		{
 			if (ft_strchr(PLAYER_CHARACTERS, game->map->map[y][x]))
 			{
-				return (1);
+				game->map->map[y][x] = '0';
 			}
 		}
 	}
-	return (0);
 }
 
-int	start_player(t_game *game)
+void	start_player(t_game *game)
 {
 	find_player_pos(game->map);
 	game->player.pos.x = (int)game->map->player_pos.x;
@@ -87,20 +86,14 @@ int	start_player(t_game *game)
 	game->player.mov_dir.y = 0;
 	game->player.rot_dir = 0;
 	set_player_view(game);
-	game->map->map[(int)game->map->player_pos.y][
-		(int)game->map->player_pos.x] = '0';
-	if (fix_player_pos(game))
-		return (ft_printf("Error\nToo Many Players\n"));
-	return (0);
+	fix_player_pos(game);
 }
 
-int	start_game(t_game *game)
+void	start_game(t_game *game)
 {
-	if (start_player(game))
-		return (1);
+	start_player(game);
 	game->time = get_time();
 	game->old_time = get_time();
 	game->mouse_prev_x = WIDTH / 2;
 	game->door_frame = 0;
-	return (0);
 }
