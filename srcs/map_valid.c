@@ -6,7 +6,7 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:27:39 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/20 12:11:48 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/21 10:10:35 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,11 @@
 int	path_exist(char *path)
 {
 	int	fd;
+	int	i;
 
+	i = ft_strlen(path) - 4;
+	if (ft_strncmp(&path[i], ".xpm", 4))
+		return (0);
 	fd = open(path, O_RDONLY);
 	if (fd < 1)
 		return (0);
@@ -87,7 +91,7 @@ int	find_player_pos(t_map *map)
 	return (0);
 }
 
-int	validate_map(t_map *map)
+int	validate_map(t_map *map, char **file)
 {
 	if (verify_map_textures_and_colors(map))
 		return (1);
@@ -95,5 +99,7 @@ int	validate_map(t_map *map)
 		return (1);
 	if (!find_player_pos(map))
 		return (ft_printf("Error\nPlayer not in map\n"));
+	if (map_extra_check(map, file))
+		return (1);
 	return (0);
 }
