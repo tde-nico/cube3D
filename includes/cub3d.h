@@ -6,7 +6,7 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:51:34 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/20 12:27:43 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/21 12:52:07 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,12 @@
 // "O" is the open door character
 # define MAP_CHARACTERS " 01NSWEDO"
 # define PLAYER_CHARACTERS "NSWE"
-# define NORD_TEXTURE "NO"
-# define SUD_TEXTURE "SO"
-# define WEST_TEXTURE "WE"
-# define EAST_TEXTURE "EA"
-# define FLOOR_COLOR "F"
-# define CEILLING_COLOR "C"
+# define NORD_TEXTURE "NO "
+# define SUD_TEXTURE "SO "
+# define WEST_TEXTURE "WE "
+# define EAST_TEXTURE "EA "
+# define FLOOR_COLOR "F "
+# define CEILLING_COLOR "C "
 
 // "map_init" for map intitalizaiton
 // "inputs" for the input keys
@@ -155,6 +155,8 @@ typedef struct s_map
 	char	**map;
 	int		width;
 	int		height;
+	int		floor;
+	int		ceilling;
 }	t_map;
 
 typedef struct s_player
@@ -248,14 +250,16 @@ int			clean_exit(t_game *game);
 int			exit_game(void);
 
 //map_extra_check
-int			extra_map_integrity_check(char **map);
+int			map_extra_check(t_map *map, char **file);
+int			map_add_ceiling(char **file, t_map *map, int i, char **tmp);
+int			extra_texture_check(char **file, t_map *map, int i, int j);
 
 //map_read
 t_map		*read_map(char *fname);
 
 //map_valid
 int			find_player_pos(t_map *map);
-int			validate_map(t_map *map);
+int			validate_map(t_map *map, char **file);
 
 //minimap
 void		draw_minimap(t_game *game);
@@ -284,7 +288,7 @@ char		**read_file(char *fname);
 
 //start
 void		set_player_view(t_game *game);
-void		start_game(t_game *game);
+int			start_game(t_game *game);
 
 //str_utils
 char		*ft_charjoin(char *s1, char s2);

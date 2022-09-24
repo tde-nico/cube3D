@@ -6,7 +6,7 @@
 /*   By: tde-nico <tde-nico@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 11:35:00 by tde-nico          #+#    #+#             */
-/*   Updated: 2022/09/20 11:00:18 by tde-nico         ###   ########.fr       */
+/*   Updated: 2022/09/21 09:19:49 by tde-nico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	update_time(t_game *game)
 	mlx_string_put(game->mlx, game->win,
 		20, 20, -1, curr_fps);
 	free(curr_fps);
+	game->door_frame += 1;
 }
 
 int	check_door_proximity(t_game *game)
@@ -97,6 +98,5 @@ int	update(t_game *game)
 	update_time(game);
 	update_inputs(game);
 	check_door_proximity(game);
-	game->door_frame += 1;
 	return (0);
 }
